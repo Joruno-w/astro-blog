@@ -1,14 +1,14 @@
 import type { Site, Ui, Features } from './types'
 
 export const SITE: Site = {
-  website: 'https://astro-antfustyle-theme.vercel.app/',
+  website: 'https://astro-blog-delta-sandy.vercel.app/',
   base: '/',
   title: 'Astro AntfuStyle Theme',
   description:
     'A customizable, feature-rich Astro theme for blog and portfolio creation',
   author: 'Stephanie Lin',
-  lang: 'en',
-  ogLocale: 'en_US',
+  lang: 'zh-Hant',
+  ogLocale: 'zh_CN',
 }
 
 export const UI: Ui = {
@@ -115,8 +115,8 @@ export const FEATURES: Features = {
     {
       minHeadingLevel: 2,
       maxHeadingLevel: 4,
-      displayPosition: 'left',
-      displayMode: 'hover',
+      displayPosition: 'right',
+      displayMode: 'always',
     },
   ],
   ogImage: [
