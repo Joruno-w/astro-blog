@@ -1,79 +1,16 @@
-Glad you made it here! This is a customizable, feature-rich :link[Astro]{id=withastro/astro} theme for blog and portfolio creation, inspired by the minimalist style of :link[antfu.me]{link=https://antfu.me/ imageUrl=https://antfu.me/favicon.svg}. The design has been refined and its functionality expanded for greater flexibility.
+## 关于我
 
-This live demo will guide you through setup and customization, offering helpful insights along the way. Enjoy exploring all the features this theme provides! ✨
+你好👋，我是乔鲁诺，作为一名前端开发者，我热爱将创意转化为交互体验。我沉迷于构建那些既美观又实用的数字产品，在代码与设计的边界探索无限可能。
 
-**Optimized Infrastructure**
+在我的代码之旅中，我参与打造了从电商平台到数据可视化应用的各类项目。我不仅追求像素级的还原设计，更着迷于性能优化的每一毫秒。在团队中，我喜欢分享知识，也乐于从他人经验中汲取灵感。
 
-- Zero UI Framework
-- [SEO-friendly](./blog/faqs-and-known-issues/#about-seo-and-accessibility)
-- Auto-generated RSS Feed
-- Support for [Subpath Deployment](./blog/basic-configuration/#configuring-site)
-- Optimized Local Image Handling
-- VS Code Snippets for Quick Coding
-- Well-organized [Project Structure](./blog/project-structure/)
-- Outstanding [Lighthouse Performance](./blog/faqs-and-known-issues/#lighthouse-scores)
+这个博客是我的数字花园，播种着技术思考、项目反思和学习点滴。我相信开源精神和持续学习的力量，通过不断尝试新技术来拓展自己的认知边界。
 
-**Content Management**
+## 找到我
 
-- Type Safety
-- Markdown & MDX Support
-- KaTeX Math Integration
-- [Dynamic OG Image Generation](./blog/about-open-graph-images/)
-- [Callouts (Alerts / Admonitions)](./blog/markdown-mdx-extended-features/#callouts-alerts--admonitions)
-- [Directive Sugar](./blog/markdown-mdx-extended-features/#image-caption--link) for Both Markdown/MDX
-- [Code Syntax Highlighting & Annotations](./blog/markdown-mdx-extended-features/#fully-featured-code-blocks)
-- Customizable Animated Backgrounds (Take a look around!)
-- [Showcase Your GitHub Releases and PRs](./blog/customizing-github-activity-pages)
+想聊聊前端的未来？有项目想一起探讨？或者只是想交个朋友？这些途径随时欢迎你的出现：
 
-**User Experience**
+- 📧 Email: wsl1710642275@gmail.com
+- 🐙 GitHub: [https://github.com/Joruno-w](https://github.com/Joruno-w)
 
-- Responsive Layout
-- Full-platform TOC support
-- Light & Dark Modes Toggle
-- Smooth View Transitions
-- Loading Progress Indicator
-- [Image Zoom](./blog/faqs-and-known-issues/#image-zoom) Preview
-- [Search Functionality](./blog/faqs-and-known-issues/#search-functionality)
-- [Accessibility Enhancements](./blog/faqs-and-known-issues/#about-seo-and-accessibility)
-- Social Media Sharing
-- Keyboard-Friendly
-
-> Preparing to upgrade to Astro 5 with [more features](https://github.com/users/lin-stephanie/projects/4)! 🚀
-
----
-
-<p>
-  Visit the theme's
-  <a
-    class="inline-block ml-1.5 op-75 hover:op-100"
-    href="https://github.com/lin-stephanie/astro-antfustyle-theme"
-  >
-  <span i-simple-icons-github></span> GitHub repo</a>
-</p>
-
-<p>
-  <span class="inline-block mr-1.5 mb-2">Find me on</span>
-  <span class="inline-flex flex-wrap gap-2 op-75 hover:op-100">
-    <a href="https://github.com/lin-stephanie/astro-antfustyle-theme">
-      <span i-simple-icons-github></span> GitHub</a>
-    <a href="https://github.com/lin-stephanie/astro-antfustyle-theme">
-      <span i-ri-twitter-x-fill></span> Twitter</a>
-    <a href="https://github.com/lin-stephanie/astro-antfustyle-theme">
-      <span i-simple-icons-instagram></span> Instagram</a>
-    <a href="https://github.com/lin-stephanie/astro-antfustyle-theme">
-      <span i-simple-icons-mastodon></span> Mastodon</a>
-    <a href="https://github.com/lin-stephanie/astro-antfustyle-theme">
-      <span i-simple-icons-youtube></span> YouTube</a>
-  </span>
-</p>
-
----
-
-If you find this theme helpful, consider supporting the project maintainer or the style designer. Your support means more than you know. Thank you! ❤️
-
-<div class="flex flex-wrap gap-4">
-  <a class="btn-rose" href="https://github.com/sponsors/lin-stephanie">
-    <span class="i-ph-heart-duotone"></span> Support Stephanie Lin (Maintainer)</a>
-  <a class="btn-yellow" href="https://github.com/sponsors/antfu">
-    <span class="i-ph-lightning-duotone"></span> Support Anthony Fu (Designer)</a>
-</div>
+让我们在这个由代码构建的世界里，一起创造美好体验！

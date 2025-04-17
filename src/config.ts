@@ -19,19 +19,19 @@ export const UI: Ui = {
       displayMode: 'alwaysText',
       text: 'Blog',
     },
-    {
-      path: '/projects',
-      title: 'Projects',
-      displayMode: 'alwaysText',
-      text: 'Projects',
-    },
-    {
-      path: '/changelog',
-      title: 'Changelog',
-      displayMode: 'iconToTextOnMobile',
-      text: 'Changelog',
-      icon: 'i-ri-draft-line',
-    },
+    // {
+    //   path: '/projects',
+    //   title: 'Projects',
+    //   displayMode: 'alwaysText',
+    //   text: 'Projects',
+    // },
+    // {
+    //   path: '/changelog',
+    //   title: 'Changelog',
+    //   displayMode: 'iconToTextOnMobile',
+    //   text: 'Changelog',
+    //   icon: 'i-ri-draft-line',
+    // },
   ],
   socialLinks: [
     {
@@ -51,10 +51,10 @@ export const UI: Ui = {
     left: [],
     right: [
       'internalNavs',
-      'socialLinks',
+      // 'socialLinks',
       'searchButton',
       'themeButton',
-      'rssLink',
+      // 'rssLink',
     ],
     mergeOnMobile: true,
   },
