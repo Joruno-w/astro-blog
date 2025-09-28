@@ -3,10 +3,9 @@ import type { Site, Ui, Features } from './types'
 export const SITE: Site = {
   website: 'https://astro-blog-delta-sandy.vercel.app/',
   base: '/',
-  title: 'Astro AntfuStyle Theme',
-  description:
-    'A customizable, feature-rich Astro theme for blog and portfolio creation',
-  author: 'Stephanie Lin',
+  title: 'Joruno Jobaāna',
+  description: "Joruno Jobaāna's blog",
+  author: 'Joruno Jobaāna',
   lang: 'zh-Hant',
   ogLocale: 'zh_CN',
 }
@@ -99,8 +98,8 @@ export const FEATURES: Features = {
   share: [
     true,
     {
-      twitter: [true, '@ste7lin'],
-      bluesky: [true, '@ste7lin.bsky.social'],
+      twitter: false,
+      bluesky: false,
       mastodon: false,
       facebook: false,
       pinterest: false,
@@ -127,5 +126,5 @@ export const FEATURES: Features = {
       fallbackBgType: 'plum',
     },
   ],
-  slideEnterAnim: [true, { enterStep: 100 }],
+  slideEnterAnim: [true, { enterStep: 40 }],
 }
