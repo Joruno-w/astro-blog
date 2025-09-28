@@ -4,7 +4,7 @@ import { ensureTrailingSlash } from '~/utils/common'
 
 const pathSegments = ensureTrailingSlash(Astro.url.pathname)
   .split('/')
-  .slice(0, -2)
+  .slice(0, -3)
 const href = pathSegments.length > 1 ? pathSegments.join('/') + '/' : '/'
 ---
 
