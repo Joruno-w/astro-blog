@@ -8,7 +8,13 @@ import Warning from '~/components/base/Warning.astro'
 
 import { FEATURES } from '~/config'
 import { isSameYear, getYear } from '~/utils/datetime'
-import { getFilteredPosts, getSortedPosts, getSortedPostsByCategory, isSameCategory, getUniqueCategories } from '~/utils/post'
+import {
+  getFilteredPosts,
+  getSortedPosts,
+  getSortedPostsByCategory,
+  isSameCategory,
+  getUniqueCategories,
+} from '~/utils/post'
 
 import type {
   CollectionEntry,
@@ -37,7 +43,7 @@ let sortedBlogItems: CollectionEntry<ContentCollectionKey>[] = []
 
 if (collectionType === 'blog' || collectionType === 'changelog') {
   blogItems = await getFilteredPosts(collectionType)
-  
+
   if (collectionType === 'blog') {
     // For blog posts, sort by category first
     sortedBlogItems = getSortedPostsByCategory(blogItems)
@@ -138,32 +144,34 @@ const warningHTML = `The '${collectionType}' collection type does not
           const minutesRead =
             data.minutesRead || remarkPluginFrontmatter.minutesRead
 
-          const currentCategory = ('category' in data ? data.category : undefined) || '未分类'
+          const currentCategory =
+            ('category' in data ? data.category : undefined) || '未分类'
           const previousData = sortedBlogItems[idx - 1]?.data
-          const previousCategory = (previousData && 'category' in previousData ? previousData.category : undefined) || '未分类'
+          const previousCategory =
+            (previousData && 'category' in previousData
+              ? previousData.category
+              : undefined) || '未分类'
 
           return (
             <>
-              {collectionType === 'blog' ? (
-                !isSameCategory(currentCategory, previousCategory) && (
-                  <Categorizer
-                    {idx}
-                    needId={tocEnabled}
-                    text={currentCategory}
-                  />
-                )
-              ) : (
-                !isSameYear(
-                  data.pubDate,
-                  sortedBlogItems[idx - 1]?.data.pubDate
-                ) && (
-                  <Categorizer
-                    {idx}
-                    needId={tocEnabled}
-                    text={getYear(data.pubDate).toString()}
-                  />
-                )
-              )}
+              {collectionType === 'blog'
+                ? !isSameCategory(currentCategory, previousCategory) && (
+                    <Categorizer
+                      {idx}
+                      needId={tocEnabled}
+                      text={currentCategory}
+                    />
+                  )
+                : !isSameYear(
+                    data.pubDate,
+                    sortedBlogItems[idx - 1]?.data.pubDate
+                  ) && (
+                    <Categorizer
+                      {idx}
+                      needId={tocEnabled}
+                      text={getYear(data.pubDate).toString()}
+                    />
+                  )}
               <ListItem
                 {idx}
                 {collectionType}

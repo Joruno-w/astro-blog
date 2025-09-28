@@ -1,6 +1,6 @@
 ---
 title: Promise 基础
-description:  Promise 基础
+description: Promise 基础
 pubDate: 2025-12-31
 lastModDate: ''
 toc: true
@@ -36,19 +36,19 @@ function sendMessage(name, onFulffiled, onRejected) {
   // 模拟 发送表白短信
   console.log(
     `邓哥 -> ${name}：最近有谣言说我喜欢你，我要澄清一下，那不是谣言😘`
-  );
-  console.log(`等待${name}回复......`);
+  )
+  console.log(`等待${name}回复......`)
   // 模拟 女神回复需要一段时间
   setTimeout(() => {
     // 模拟 有10%的几率成功
     if (Math.random() <= 0.1) {
       // 成功，调用 onFuffiled，并传递女神的回复
-      onFulffiled(`${name} -> 邓哥：我是九，你是三，除了你还是你😘`);
+      onFulffiled(`${name} -> 邓哥：我是九，你是三，除了你还是你😘`)
     } else {
       // 失败，调用 onRejected，并传递女神的回复
-      onRejected(`${name} -> 邓哥：你是个好人😜`);
+      onRejected(`${name} -> 邓哥：你是个好人😜`)
     }
-  }, 1000);
+  }, 1000)
 }
 ```
 
@@ -60,47 +60,47 @@ sendMessage(
   '李建国',
   (reply) => {
     // 如果成功了，输出回复的消息后，结束
-    console.log(reply);
+    console.log(reply)
   },
   (reply) => {
     // 如果失败了，输出回复的消息后，向 王富贵 发送消息
-    console.log(reply);
+    console.log(reply)
     sendMessage(
       '王富贵',
       (reply) => {
         // 如果成功了，输出回复的消息后，结束
-        console.log(reply);
+        console.log(reply)
       },
       (reply) => {
         // 如果失败了，输出回复的消息后，向 周聚财 发送消息
-        console.log(reply);
+        console.log(reply)
         sendMessage(
           '周聚财',
           (reply) => {
             // 如果成功了，输出回复的消息后，结束
-            console.log(reply);
+            console.log(reply)
           },
           (reply) => {
             // 如果失败了，输出回复的消息后，向 刘人勇 发送消息
-            console.log(reply);
+            console.log(reply)
             sendMessage(
               '刘人勇',
               (reply) => {
                 // 如果成功了，输出回复的消息后，结束
-                console.log(reply);
+                console.log(reply)
               },
               (reply) => {
                 // 如果失败了，就彻底没戏了
-                console.log(reply);
-                console.log('邓哥命犯天煞孤星，注定孤独终老！！');
+                console.log(reply)
+                console.log('邓哥命犯天煞孤星，注定孤独终老！！')
               }
-            );
+            )
           }
-        );
+        )
       }
-    );
+    )
   }
-);
+)
 ```
 
 该程序完成后，邓哥内心是崩溃的
@@ -123,11 +123,19 @@ Promise A+ 规定：
 
 1. 所有的异步场景，都可以看作是一个异步任务，每个异步任务，在JS中应该表现为一个**对象**，该对象称之为**Promise对象**，也叫做任务对象
 
-   <img src="http://mdrs.yuanjin.tech/img/20210618154556.png" alt="image-20210618154556558" style="zoom:50%;" />
+   <img
+     src="http://mdrs.yuanjin.tech/img/20210618154556.png"
+     alt="image-20210618154556558"
+     style="zoom:50%;"
+   />
 
 2. 每个任务对象，都应该有两个阶段、三个状态
 
-   <img src="http://mdrs.yuanjin.tech/img/20210618155145.png" alt="image-20210618155145355" style="zoom:50%;" />
+   <img
+     src="http://mdrs.yuanjin.tech/img/20210618155145.png"
+     alt="image-20210618155145355"
+     style="zoom:50%;"
+   />
 
    根据常理，它们之间存在以下逻辑：
 
@@ -155,7 +163,7 @@ const pro = new Promise((resolve, reject) => {
   // 任务的具体执行流程，该函数会立即被执行
   // 调用 resolve(data)，可将任务变为 fulfilled 状态， data 为需要传递的相关数据
   // 调用 reject(reason)，可将任务变为 rejected 状态，reason 为需要传递的失败原因
-});
+})
 
 pro.then(
   (data) => {
@@ -164,7 +172,7 @@ pro.then(
   (reason) => {
     // onRejected 函数，当任务失败后，会自动运行该函数，reason为任务失败的相关原因
   }
-);
+)
 ```
 
 # 邓哥的解决方案
@@ -180,20 +188,20 @@ function sendMessage(name) {
     // 模拟 发送表白短信
     console.log(
       `邓哥 -> ${name}：最近有谣言说我喜欢你，我要澄清一下，那不是谣言😘`
-    );
-    console.log(`等待${name}回复......`);
+    )
+    console.log(`等待${name}回复......`)
     // 模拟 女神回复需要一段时间
     setTimeout(() => {
       // 模拟 有10%的几率成功
       if (Math.random() <= 0.1) {
         // 成功，调用 resolve，并传递女神的回复
-        resolve(`${name} -> 邓哥：我是九，你是三，除了你还是你😘`);
+        resolve(`${name} -> 邓哥：我是九，你是三，除了你还是你😘`)
       } else {
         // 失败，调用 reject，并传递女神的回复
-        reject(`${name} -> 邓哥：你是个好人😜`);
+        reject(`${name} -> 邓哥：你是个好人😜`)
       }
-    }, 1000);
-  });
+    }, 1000)
+  })
 }
 ```
 
@@ -203,13 +211,13 @@ function sendMessage(name) {
 sendMessage('李建国').then(
   (reply) => {
     // 女神答应了，输出女神的回复
-    console.log(reply);
+    console.log(reply)
   },
   (reason) => {
     // 女神拒绝了，输出女神的回复
-    console.log(reason);
+    console.log(reason)
   }
-);
+)
 ```
 
 > 至此，回调地狱的问题仍然没能解决

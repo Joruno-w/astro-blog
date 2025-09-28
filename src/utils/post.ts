@@ -45,13 +45,13 @@ export function getSortedPostsByCategory(
   return posts.sort((a, b) => {
     const categoryA = ('category' in a.data ? a.data.category : undefined) || '未分类'
     const categoryB = ('category' in b.data ? b.data.category : undefined) || '未分类'
-    
+
     // First sort by category
     const categoryCompare = categoryA.localeCompare(categoryB, 'zh-CN')
     if (categoryCompare !== 0) {
       return categoryCompare
     }
-    
+
     // Then sort by publication date (newest first) within the same category
     return b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
   })
@@ -78,7 +78,7 @@ export function getUniqueCategories(
   posts: CollectionEntry<ContentCollectionKey>[]
 ): string[] {
   const categoriesSet = new Set<string>()
-  
+
   posts.forEach((post) => {
     const category = ('category' in post.data ? post.data.category : undefined) || '未分类'
     categoriesSet.add(category)

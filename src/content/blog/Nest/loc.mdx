@@ -6,7 +6,7 @@ lastModDate: ''
 toc: true
 share: true
 ogImage: true
-category: Nest.js
+category: Nest
 ---
 
 ## IoC的核心思想
@@ -20,12 +20,11 @@ category: Nest.js
 
 这意味着，在后端的开发过程中，你需要按照合适的顺序创建这些内容。比如下面的伪代码：
 
-
 ```typescript
-const dataSource = new DataSource(config);
-const dao = new Dao(dataSource);
-const service = new Service(dao);
-const controller = new Controller(service);
+const dataSource = new DataSource(config)
+const dao = new Dao(dataSource)
+const service = new Service(dao)
+const controller = new Controller(service)
 ```
 
 在后端系统中，通常有很多的业务模块，也就意味着，有很多不同的`Controller`，`Service`和`Dao`。而且，经常会出现**多个不同的Controller模块，调用同一个Service的情况**。那这个时候，如果重新new不同的Service对象，是不合适的，因为我们希望确保它们使用的是**同一个Service实例**，也就是**维持单例模式**。
@@ -68,46 +67,46 @@ const controller = new Controller(service);
 ```typescript
 class PaymentService {
   processPayment(amount) {
-    console.log(`处理付款金额: $${amount}`);
-    return true; // 假设支付成功
+    console.log(`处理付款金额: $${amount}`)
+    return true // 假设支付成功
   }
 }
 
 class ShippingService {
   shipOrder(orderDetails) {
-    console.log(`订单发货至: ${orderDetails.address}`);
+    console.log(`订单发货至: ${orderDetails.address}`)
   }
 }
 
 class OrderService {
   constructor() {
     // 直接在构造函数中创建依赖
-    this.paymentService = new PaymentService();  // 直接创建 PaymentService 实例
-    this.shippingService = new ShippingService(); // 直接创建 ShippingService 实例
+    this.paymentService = new PaymentService() // 直接创建 PaymentService 实例
+    this.shippingService = new ShippingService() // 直接创建 ShippingService 实例
   }
 
   createOrder(amount, address) {
-    console.log(`创建订单金额： $${amount}`);
+    console.log(`创建订单金额： $${amount}`)
 
     // 调用 paymentService 进行支付
-    const paymentSuccess = this.paymentService.processPayment(amount);
+    const paymentSuccess = this.paymentService.processPayment(amount)
 
     if (paymentSuccess) {
-      console.log(`订单创建成功!`);
+      console.log(`订单创建成功!`)
 
       // 调用 shippingService 发货
-      this.shippingService.shipOrder({ address });
+      this.shippingService.shipOrder({ address })
     } else {
-      console.log(`付款失败。订单创建已中止!`);
+      console.log(`付款失败。订单创建已中止!`)
     }
   }
 }
 
 // 直接创建 OrderService 的实例，而不是从容器获取
-const orderService = new OrderService();
+const orderService = new OrderService()
 
 // 创建订单
-orderService.createOrder(200, '成都市天府三街');
+orderService.createOrder(200, '成都市天府三街')
 ```
 
 #### IoC方式
@@ -115,79 +114,79 @@ orderService.createOrder(200, '成都市天府三街');
 ```typescript
 class Container {
   constructor() {
-    this.services = new Map(); // 存储服务实例
+    this.services = new Map() // 存储服务实例
   }
 
   // 注册服务到容器中
   register(name, service) {
-    this.services.set(name, service);
+    this.services.set(name, service)
   }
 
   // 获取服务实例
   get(name) {
-    const service = this.services.get(name);
+    const service = this.services.get(name)
     if (!service) {
-      throw new Error(`Service ${name} not found!`);
+      throw new Error(`Service ${name} not found!`)
     }
     // 如果服务是一个工厂函数，执行它来创建实例
     if (typeof service === 'function') {
-      const instance = service(this); // 创建实例
-      this.services.set(name, instance); // 缓存实例
-      return instance;
+      const instance = service(this) // 创建实例
+      this.services.set(name, instance) // 缓存实例
+      return instance
     }
-    return service;
+    return service
   }
 }
 
 // PaymentService 负责处理支付
 class PaymentService {
   processPayment(amount) {
-    console.log(`处理付款金额: $${amount}`);
-    return true; // 假设支付成功
+    console.log(`处理付款金额: $${amount}`)
+    return true // 假设支付成功
   }
 }
 
 class ShippingService {
   shipOrder(orderDetails) {
-    console.log(`订单发货至: ${orderDetails.address}`);
+    console.log(`订单发货至: ${orderDetails.address}`)
   }
 }
 
 // OrderService 依赖 PaymentService和ShippingService，创建订单时需要调用支付和发货服务
 class OrderService {
   constructor(paymentService, shippingService) {
-    this.paymentService = paymentService;
-    this.shippingService = shippingService;
+    this.paymentService = paymentService
+    this.shippingService = shippingService
   }
 
   createOrder(amount, address) {
-    console.log(`创建订单金额：$${amount}`);
-    const paymentSuccess = this.paymentService.processPayment(amount);
+    console.log(`创建订单金额：$${amount}`)
+    const paymentSuccess = this.paymentService.processPayment(amount)
     if (paymentSuccess) {
-      console.log(`订单创建成功!`);
-      this.shippingService.shipOrder({ address });
+      console.log(`订单创建成功!`)
+      this.shippingService.shipOrder({ address })
     } else {
-      console.log(`付款失败。订单创建已中止!`);
+      console.log(`付款失败。订单创建已中止!`)
     }
   }
 }
 
 // 创建一个 IoC 容器实例
-const container = new Container();
+const container = new Container()
 
-container.register('paymentService', new PaymentService()); // 直接注册 PaymentService
-container.register('shippingService', new ShippingService()); // 直接注册 ShippingService
+container.register('paymentService', new PaymentService()) // 直接注册 PaymentService
+container.register('shippingService', new ShippingService()) // 直接注册 ShippingService
 
 container.register('orderService', (container) => {
   return new OrderService(
     container.get('paymentService'),
     container.get('shippingService')
-  ); // 注入 PaymentService 和 ShippingService
-});
+  ) // 注入 PaymentService 和 ShippingService
+})
 
 // 从容器中获取 OrderService，并创建一个订单
-const orderService = container.get('orderService');
-orderService.createOrder(200, '成都市天府三街');
+const orderService = container.get('orderService')
+orderService.createOrder(200, '成都市天府三街')
 ```
 
 最终实现的效果其实是一致的，但是我们仔细看一下，如果传统的方式，再次来获取订单服务，我们可能会不经意之间直接又会**重新new一次订单服务**，但是，IoC的模式下，我们是从容器中直接获取的，从而保证了订单服务始终都是同一个对象。
@@ -195,20 +194,17 @@ orderService.createOrder(200, '成都市天府三街');
 如果是**传统模式**，使用下面的代码，就能很清楚的分辨出缺陷
 
 ```typescript
-const orderService2 = new OrderService();
+const orderService2 = new OrderService()
 
-console.log(orderService === orderService2); // false
-console.log(orderService.paymentService === orderService2.paymentService); // false
+console.log(orderService === orderService2) // false
+console.log(orderService.paymentService === orderService2.paymentService) // false
 ```
 
 同样的代码，我们换到**IoC模式**：
 
 ```typescript
-const orderService2 = container.get('orderService');
+const orderService2 = container.get('orderService')
 
-console.log(orderService === orderService2); // true
-console.log(orderService.paymentService === orderService2.paymentService); // true
+console.log(orderService === orderService2) // true
+console.log(orderService.paymentService === orderService2.paymentService) // true
 ```
-
-
-
