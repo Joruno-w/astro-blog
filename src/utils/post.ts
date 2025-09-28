@@ -34,7 +34,18 @@ export function getSortedPosts(
 }
 
 /**
- * Sorts an array of blog posts by category first, then by publication date within each category.
+ * Extracts the sequence number from a filename (e.g., "1.基本介绍" -> 1)
+ *
+ * @param {string} filename - The filename to extract number from.
+ * @returns {number} - The extracted number, or Infinity if no number found.
+ */
+function extractSequenceNumber(filename: string): number {
+  const match = filename.match(/^(\d+)\./)
+  return match ? parseInt(match[1], 10) : Infinity
+}
+
+/**
+ * Sorts an array of blog posts by category first, then by filename sequence number within each category.
  *
  * @param {CollectionEntry<ContentCollectionKey>[]} posts - An array of posts to sort.
  * @returns {CollectionEntry<ContentCollectionKey>[]} - The sorted array of posts.
@@ -52,7 +63,15 @@ export function getSortedPostsByCategory(
       return categoryCompare
     }
 
-    // Then sort by publication date (newest first) within the same category
+    // Then sort by sequence number within the same category
+    const seqA = extractSequenceNumber(a.slug)
+    const seqB = extractSequenceNumber(b.slug)
+
+    if (seqA !== seqB) {
+      return seqA - seqB // Sort by sequence number (ascending)
+    }
+
+    // If no sequence numbers or they're equal, sort by publication date (newest first)
     return b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
   })
 }
