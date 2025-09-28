@@ -8,7 +8,7 @@ import Warning from '~/components/base/Warning.astro'
 
 import { FEATURES } from '~/config'
 import { isSameYear, getYear } from '~/utils/datetime'
-import { getFilteredPosts, getSortedPosts } from '~/utils/post'
+import { getFilteredPosts, getSortedPosts, getSortedPostsByCategory, isSameCategory, getUniqueCategories } from '~/utils/post'
 
 import type {
   CollectionEntry,
@@ -29,6 +29,7 @@ const validCollectionType = ['blog', 'changelog', 'streams', 'feeds']
 const { toc } = FEATURES
 const tocEnabled = Array.isArray(toc) && toc[0] && pageToc
 let years: string[] = []
+let categories: string[] = []
 
 /* Posts */
 let blogItems: CollectionEntry<ContentCollectionKey>[]
@@ -36,18 +37,31 @@ let sortedBlogItems: CollectionEntry<ContentCollectionKey>[] = []
 
 if (collectionType === 'blog' || collectionType === 'changelog') {
   blogItems = await getFilteredPosts(collectionType)
-  sortedBlogItems = getSortedPosts(blogItems)
+  
+  if (collectionType === 'blog') {
+    // For blog posts, sort by category first
+    sortedBlogItems = getSortedPostsByCategory(blogItems)
+  } else {
+    // For changelog, sort by date only
+    sortedBlogItems = getSortedPosts(blogItems)
+  }
 
   if (tocEnabled) {
-    const yearsSet = new Set<number>()
-    sortedBlogItems.forEach((item) => {
-      const year = getYear(item.data.pubDate)
-      yearsSet.add(year)
-    })
+    if (collectionType === 'blog') {
+      // For blog posts, use categories
+      categories = getUniqueCategories(sortedBlogItems)
+    } else {
+      // For changelog, keep using years
+      const yearsSet = new Set<number>()
+      sortedBlogItems.forEach((item) => {
+        const year = getYear(item.data.pubDate)
+        yearsSet.add(year)
+      })
 
-    years = Array.from(yearsSet)
-      .sort((a, b) => b - a)
-      .map((year) => year.toString())
+      years = Array.from(yearsSet)
+        .sort((a, b) => b - a)
+        .map((year) => year.toString())
+    }
   }
 }
 
@@ -110,7 +124,7 @@ const warningHTML = `The '${collectionType}' collection type does not
   collection types to render the list.`
 ---
 
-{tocEnabled && <Toc {years} />}
+{tocEnabled && <Toc years={collectionType === 'blog' ? categories : years} />}
 
 {
   (collectionType === 'blog' || collectionType === 'changelog') && (
@@ -124,17 +138,31 @@ const warningHTML = `The '${collectionType}' collection type does not
           const minutesRead =
             data.minutesRead || remarkPluginFrontmatter.minutesRead
 
+          const currentCategory = ('category' in data ? data.category : undefined) || '未分类'
+          const previousData = sortedBlogItems[idx - 1]?.data
+          const previousCategory = (previousData && 'category' in previousData ? previousData.category : undefined) || '未分类'
+
           return (
             <>
-              {!isSameYear(
-                data.pubDate,
-                sortedBlogItems[idx - 1]?.data.pubDate
-              ) && (
-                <Categorizer
-                  {idx}
-                  needId={tocEnabled}
-                  text={getYear(data.pubDate).toString()}
-                />
+              {collectionType === 'blog' ? (
+                !isSameCategory(currentCategory, previousCategory) && (
+                  <Categorizer
+                    {idx}
+                    needId={tocEnabled}
+                    text={currentCategory}
+                  />
+                )
+              ) : (
+                !isSameYear(
+                  data.pubDate,
+                  sortedBlogItems[idx - 1]?.data.pubDate
+                ) && (
+                  <Categorizer
+                    {idx}
+                    needId={tocEnabled}
+                    text={getYear(data.pubDate).toString()}
+                  />
+                )
               )}
               <ListItem
                 {idx}

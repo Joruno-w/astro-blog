@@ -32,3 +32,57 @@ export function getSortedPosts(
     (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
   )
 }
+
+/**
+ * Sorts an array of blog posts by category first, then by publication date within each category.
+ *
+ * @param {CollectionEntry<ContentCollectionKey>[]} posts - An array of posts to sort.
+ * @returns {CollectionEntry<ContentCollectionKey>[]} - The sorted array of posts.
+ */
+export function getSortedPostsByCategory(
+  posts: CollectionEntry<ContentCollectionKey>[]
+): CollectionEntry<ContentCollectionKey>[] {
+  return posts.sort((a, b) => {
+    const categoryA = ('category' in a.data ? a.data.category : undefined) || '未分类'
+    const categoryB = ('category' in b.data ? b.data.category : undefined) || '未分类'
+    
+    // First sort by category
+    const categoryCompare = categoryA.localeCompare(categoryB, 'zh-CN')
+    if (categoryCompare !== 0) {
+      return categoryCompare
+    }
+    
+    // Then sort by publication date (newest first) within the same category
+    return b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+  })
+}
+
+/**
+ * Checks if two posts belong to the same category.
+ *
+ * @param {string} category1 - The category of the first post.
+ * @param {string} category2 - The category of the second post.
+ * @returns {boolean} - True if both posts belong to the same category.
+ */
+export function isSameCategory(category1?: string, category2?: string): boolean {
+  return category1 === category2
+}
+
+/**
+ * Gets unique categories from an array of posts and sorts them alphabetically.
+ *
+ * @param {CollectionEntry<ContentCollectionKey>[]} posts - An array of posts.
+ * @returns {string[]} - An array of unique categories sorted alphabetically.
+ */
+export function getUniqueCategories(
+  posts: CollectionEntry<ContentCollectionKey>[]
+): string[] {
+  const categoriesSet = new Set<string>()
+  
+  posts.forEach((post) => {
+    const category = ('category' in post.data ? post.data.category : undefined) || '未分类'
+    categoriesSet.add(category)
+  })
+
+  return Array.from(categoriesSet).sort((a, b) => a.localeCompare(b, 'zh-CN'))
+}

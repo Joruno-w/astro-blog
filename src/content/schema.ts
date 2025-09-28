@@ -126,6 +126,12 @@ export const postSchema = z.object({
     .describe(
       'Marks the post as a draft. If `true`, it is only visible in development and excluded from production builds.'
     ),
+  category: z
+    .string()
+    .default('未分类')
+    .describe(
+      'Specifies the category of the post for grouping and organization purposes. If not provided, defaults to "未分类".'
+    ),
 })
 
 export type PostSchema = z.infer<typeof postSchema>
