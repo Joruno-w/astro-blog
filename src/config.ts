@@ -51,10 +51,10 @@ export const UI: Ui = {
     left: [],
     right: [
       'internalNavs',
-      // 'socialLinks',
+      'socialLinks',
       'searchButton',
       'themeButton',
-      // 'rssLink',
+      'rssLink',
     ],
     mergeOnMobile: true,
   },
