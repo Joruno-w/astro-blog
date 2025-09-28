@@ -19,12 +19,12 @@ export const UI: Ui = {
       displayMode: 'alwaysText',
       text: 'Blog',
     },
-    // {
-    //   path: '/projects',
-    //   title: 'Projects',
-    //   displayMode: 'alwaysText',
-    //   text: 'Projects',
-    // },
+    {
+      path: '/projects',
+      title: 'Projects',
+      displayMode: 'alwaysText',
+      text: 'Projects',
+    },
     // {
     //   path: '/changelog',
     //   title: 'Changelog',
@@ -40,12 +40,12 @@ export const UI: Ui = {
       displayMode: 'alwaysIcon',
       icon: 'i-uil-github-alt',
     },
-    {
-      link: 'https://x.com/astrodotbuild',
-      title: 'Astro on Twitter',
-      displayMode: 'alwaysIcon',
-      icon: 'i-ri-twitter-x-fill',
-    },
+    // {
+    //   link: 'https://x.com/astrodotbuild',
+    //   title: 'Astro on Twitter',
+    //   displayMode: 'alwaysIcon',
+    //   icon: 'i-ri-twitter-x-fill',
+    // },
   ],
   navBarLayout: {
     left: [],
@@ -115,8 +115,8 @@ export const FEATURES: Features = {
     {
       minHeadingLevel: 2,
       maxHeadingLevel: 4,
-      displayPosition: 'right',
-      displayMode: 'always',
+      displayPosition: 'left',
+      displayMode: 'hover',
     },
   ],
   ogImage: [
