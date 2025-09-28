@@ -34,13 +34,18 @@ export function getSortedPosts(
 }
 
 /**
- * Extracts the sequence number from a filename (e.g., "1.基本介绍" -> 1)
+ * Extracts the sequence number from a slug (e.g., "langchain/1基本介绍" -> 1)
  *
- * @param {string} filename - The filename to extract number from.
+ * @param {string} slug - The slug to extract number from.
  * @returns {number} - The extracted number, or Infinity if no number found.
  */
-function extractSequenceNumber(filename: string): number {
-  const match = filename.match(/^(\d+)\./)
+function extractSequenceNumber(slug: string): number {
+  // Extract the filename part from the slug (after the last '/')
+  const parts = slug.split('/')
+  const filename = parts[parts.length - 1]
+
+  // Match numbers at the beginning of the filename, with or without dot separator
+  const match = filename.match(/^(\d+)/)
   return match ? parseInt(match[1], 10) : Infinity
 }
 
