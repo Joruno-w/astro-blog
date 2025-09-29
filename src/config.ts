@@ -1,7 +1,7 @@
 import type { Site, Ui, Features } from './types'
 
 export const SITE: Site = {
-  website: 'https://astro-blog-delta-sandy.vercel.app/',
+  website: 'https://wangshengliang.cn/',
   base: '/',
   title: 'Joruno Jobaāna',
   description: "Joruno Jobaāna's blog",
@@ -34,8 +34,8 @@ export const UI: Ui = {
   ],
   socialLinks: [
     {
-      link: 'https://github.com/lin-stephanie/astro-antfustyle-theme',
-      title: 'AntfuStyle on Github',
+      link: 'https://github.com/Joruno-w',
+      title: 'Github',
       displayMode: 'alwaysIcon',
       icon: 'i-uil-github-alt',
     },
@@ -126,5 +126,5 @@ export const FEATURES: Features = {
       fallbackBgType: 'plum',
     },
   ],
-  slideEnterAnim: [true, { enterStep: 40 }],
+  slideEnterAnim: [true, { enterStep: 30 }],
 }
